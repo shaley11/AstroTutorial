@@ -1,4 +1,11 @@
 ---
+// Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// CSS
+//import '../styles/global.css';
+
+// JS
 const pageTitle = "Astro - About"
 
 const identity = {
@@ -13,39 +20,67 @@ const skills = ["HTML", "CSS", "Atsro", "Management", "ADA"];
 const happy = true;
 const finished = false;
 const goal = 3;
+
+const operatingSystem = "Windows";
+const quantity = 3;
+const footwear = "boots";
+const student = false;
+
+//Variable to use in css
+const skillColor = "Pink";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-        <a href="/">Home</a>
-        <a href="/about">About Astro</a>
-        <a href="/blog">Blog Astro</a>
+<BaseLayout pageTitle={pageTitle}>
+    <h2>My About Sub Header</h2>
+  
+    <p>Here are a few facts about me:</p>
 
-		<h1>About Astro</h1>
-		<h2>Headline</h2>
-		<p>Here are a few facts about me:</p>
-        <ul>
-            <li>My name is {identity.firstName}.</li>
-            <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
-            {identity.hobbies.length >= 2 &&
-                <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-            }
-        </ul>
-        <p>My skills are:</p>
-        <ul>
-            {skills.map((skill) => <li>{skill}</li>)}
-        </ul>
+    <ul>
+        <li>My name is {identity.firstName}.</li>
+        <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+        {identity.hobbies.length >= 2 &&
+            <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+        }
+    </ul>
 
+    <hr />
 
-        {happy && <p>I am happy to be learning Astro!</p>}
-        {finished && <p>I have finished this tutorial!</p>}
-        {goal ==3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days</p>}
-	</body>
-</html>
+    <p>My skills are:</p>
+    <ul>
+        {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+
+    <hr />
+
+    {happy && <p>I am happy to be learning Astro!</p>}
+    {finished && <p>I have finished this tutorial!</p>}
+    {goal ==3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days</p>}
+
+    <p>{operatingSystem}</p>
+    <p>Above should say Microsoft</p>
+
+    {student && <p>I am still in school</p>}
+    <p>Copy will display if student = true</p>
+
+    <p>I have {quantity + 8} pairs of {footwear}</p>
+    <p>Above should say "I have <strong>11</strong> pairs of <strong>boots</strong>"</p>
+
+    {operatingSystem === "MacOS" ? <p>I am using a Mac</p> : <p>I am not using a Mac</p>}
+    <p>Above should say "I am not using a Mac"</p>
+  
+  </BaseLayout>
+
+<style define:vars={{skillColor, fontWeight, textCase}}>
+    h1 {
+        color: purple;
+        font-size: 3rem;
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+    }
+    .skill {
+        color: var(--skillColor);
+        margin-bottom: 1rem;
+    }
+</style>
